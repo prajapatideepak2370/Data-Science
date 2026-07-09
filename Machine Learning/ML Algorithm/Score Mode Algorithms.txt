@@ -1,0 +1,372 @@
+Topic : - Performance Metrics, Accuracy, Precision, Recall And F-Beta Score
+
+# Step 1: Imagine a Simple Example
+
+Suppose you built a model to detect **Spam Emails**.
+
+There are only two classes:
+
+- Spam (Positive)
+- Not Spam (Negative)
+
+Suppose you tested it on **100 emails**.
+
+The actual result is:
+
+- 40 Spam
+- 60 Not Spam
+
+Your model predicts:
+
+| Actual   | Predicted | Count |
+| -------- | --------- | ----- |
+| Spam     | Spam      | 35    |
+| Spam     | Not Spam  | 5     |
+| Not Spam | Spam      | 10    |
+| Not Spam | Not Spam  | 50    |
+
+## This table is called a **Confusion Matrix**.
+
+# Step 2: Understand Confusion Matrix
+
+|                 | Predicted Spam           | Predicted Not Spam      |
+| --------------- | ------------------------ | ----------------------- |
+| Actual Spam     | True Positive (TP) = 35  | False Negative (FN) = 5 |
+| Actual Not Spam | False Positive (FP) = 10 | True Negative (TN) = 50 |
+
+Let's understand each one.
+
+### 1. True Positive (TP)
+
+The email was actually spam.
+
+The model said spam.
+
+✔ Correct prediction
+
+Example:
+Spam email → Predicted Spam
+
+## TP = 35
+
+### 2. True Negative (TN)
+
+The email was not spam.
+
+The model said not spam.
+
+✔ Correct prediction
+
+## TN = 50
+
+### 3. False Positive (FP)
+
+The email was NOT spam.
+
+But the model said spam.
+
+❌ Wrong prediction
+
+Example:
+
+Friend's email → Predicted Spam
+
+## FP = 10
+
+### 4. False Negative (FN)
+
+The email WAS spam.
+
+But the model said not spam.
+
+❌ Wrong prediction
+
+Example:
+
+Spam email → Predicted Normal
+
+## FN = 5
+
+# Step 3: Accuracy
+
+Accuracy means > Out of all predictions, how many were correct?
+
+Formula: - Accuracy = TP+TN​ / TP+TN+FP+FN
+
+Using our example
+
+TP = 35
+TN = 50
+FP = 10
+FN = 5
+
+Accuracy = 35+50/100 ​= 0.85
+Accuracy = **85%**
+
+Meaning: The model predicts correctly **85 out of every 100 emails**.
+
+---
+
+### When Accuracy is Good
+
+Use Accuracy when
+
+✅ Dataset is balanced.
+
+Example
+
+Cats = 500
+
+Dogs = 500
+
+No class dominates.
+
+---
+
+### When Accuracy is Bad
+
+Suppose
+990 Normal Patients
+10 Cancer Patients
+Model predicts
+Everyone is Normal.
+Accuracy --> 990/1000 = 99%
+
+Looks amazing.
+But it found
+0 cancer patients.
+
+## Accuracy = misleading.
+
+# Step 4: Precision
+
+Precision answers: > Out of all the items the model predicted as positive, how many were actually positive?
+
+Formula --> Precision=TP/TP​+FP
+
+Example
+
+TP = 35
+FP = 10
+
+Precision = 35/45 ​= 0.777
+
+Precision = **77.8%**
+
+## Meaning --> The model predicted 45 emails as spam. Only 35 were actually spam.
+
+### High Precision Means
+
+## Very few False Positives.
+
+### Real-life Example
+
+Suppose
+A model predicts
+"This transaction is fraud."
+Precision asks
+How many predicted fraud transactions were actually fraud?
+
+---
+
+### Use Precision When
+
+False Positives are expensive.
+
+Examples
+
+- Spam Detection
+- Fraud Detection
+- Search Engines
+- Recommendation Systems
+
+You don't want to accuse innocent people.
+
+---
+
+# Step 5: Recall
+
+Recall answers > Out of all actual positive cases, how many did the model find?
+
+Formula --> Recall = TP/TP+FN​
+
+Example
+TP = 35
+FN = 5
+Recall = 35/40​ = 0.875
+Recall = **87.5%**
+
+## Meaning --> There were 40 spam emails. The model found 35.
+
+### High Recall Means
+
+## Very few False Negatives.
+
+### Real-life Example
+
+Cancer Detection
+100 people have cancer.
+Model detects
+98
+Recall = 98%
+Very good.
+
+---
+
+### Use Recall When
+
+Missing positive cases is dangerous.
+
+Examples
+
+- Cancer Detection
+- Disease Detection
+- Fire Alarm
+- Intrusion Detection
+- Earthquake Warning
+
+---
+
+# Step 6: Precision vs Recall
+
+Imagine a fishing net.
+High Recall
+You catch almost every fish.
+But you also catch garbage.
+High Precision
+You catch only fish.
+But you miss many fish.
+
+---
+
+Example
+100 Fish
+High Recall
+Caught 98 Fish
+Also caught 50 Boots
+High Precision
+Caught 30 Fish
+Caught 0 Boots
+
+---
+
+# Step 7: F1 Score
+
+Sometimes
+Precision is high
+Recall is low
+
+or
+
+Recall is high
+Precision is low
+F1 Score combines both.
+
+Formula --> F1 = 2 × Precision×Recall​ / Precision+Recall
+
+Example
+
+Precision = 0.80
+Recall = 0.90
+
+F1=0.847
+F1 = **84.7%**
+
+---
+
+### Why Use F1?
+
+It balances Precision and Recall.
+If one is very low,
+F1 also becomes low.
+
+---
+
+# Step 8: F-Beta Score
+
+F1 gives equal importance to Precision and Recall.
+Sometimes
+You care more about one than the other.
+F-Beta solves this.
+
+Formula --> Fβ ​= (1+β2) × Precision×Recall​ / (β2×Precision)+Recall
+
+Don't worry about memorizing the formula. Focus on what **β (beta)** means:
+
+- **β = 1** → F1 Score (Precision and Recall are equally important)
+- **β > 1** → Gives **more importance to Recall**
+- **β < 1** → Gives **more importance to Precision**
+
+Examples:
+
+- **F0.5 Score** → Precision matters more.
+- **F1 Score** → Precision and Recall are balanced.
+- **F2 Score** → Recall matters more.
+
+---
+
+# Step 9: Which Metric Should You Use?
+
+| Problem                           | Best Metric  | Why?                                                     |
+| --------------------------------- | ------------ | -------------------------------------------------------- |
+| Balanced dataset                  | Accuracy     | Simple and reliable when classes are balanced            |
+| Spam Detection                    | Precision    | Avoid marking normal emails as spam                      |
+| Cancer Detection                  | Recall       | Missing a patient is very costly                         |
+| Fraud Detection                   | Recall or F2 | Better to catch most frauds, even with some false alarms |
+| Recommendation System             | Precision    | Show relevant recommendations                            |
+| Search Engine                     | Precision    | Users expect relevant results                            |
+| Face Unlock                       | Precision    | Don't unlock for the wrong person                        |
+| Disease Detection                 | Recall       | Detect as many cases as possible                         |
+| Imbalanced Dataset                | F1 Score     | Balances Precision and Recall                            |
+| General imbalanced classification | F1 or F-Beta | Better than Accuracy when classes are uneven             |
+
+---
+
+# Step 10: Which Metric for Different Models?
+
+The **metric depends on the problem**, not on the algorithm. Whether you use Logistic Regression, Decision Tree, Random Forest, XGBoost, SVM, or Neural Networks, you choose the metric based on your goal.
+
+| Dataset Type               | Recommended Metric                     |
+| -------------------------- | -------------------------------------- |
+| Balanced Classification    | Accuracy                               |
+| Imbalanced Classification  | F1 Score                               |
+| Medical Diagnosis          | Recall or F2                           |
+| Spam Detection             | Precision                              |
+| Fraud Detection            | Recall or F2                           |
+| Customer Churn             | F1 Score                               |
+| Credit Card Fraud          | Recall, F2, or PR-AUC                  |
+| Multi-class Classification | Macro F1 or Weighted F1                |
+| Binary Classification      | Accuracy (balanced) or F1 (imbalanced) |
+
+---
+
+# Step 11: A Simple Memory Trick
+
+Think of a school exam:
+
+- **Accuracy**: Overall marks in the exam.
+- **Precision**: When you say, "I know this answer," how often are you correct?
+- **Recall**: Out of all the questions you actually knew, how many did you answer?
+- **F1 Score**: A balanced score combining Precision and Recall.
+- **F-Beta Score**: Like F1, but you can choose to care more about Precision (β < 1) or Recall (β > 1).
+
+---
+
+## Final Cheat Sheet
+
+| Metric       | Formula                             | Focus                          | Best Used When                                    |
+| ------------ | ----------------------------------- | ------------------------------ | ------------------------------------------------- |
+| Accuracy     | (TP + TN) / Total                   | Overall correctness            | Balanced datasets                                 |
+| Precision    | TP / (TP + FP)                      | Minimize false positives       | Spam detection, search, recommendations           |
+| Recall       | TP / (TP + FN)                      | Minimize false negatives       | Cancer detection, fraud detection, safety systems |
+| F1 Score     | Harmonic mean of Precision & Recall | Balance both                   | Imbalanced datasets                               |
+| F-Beta Score | Weighted version of F1              | Prioritize Precision or Recall | When one type of error is more important          |
+
+### Rule of Thumb
+
+- Balanced dataset - - - - → Accuracy
+- Imbalanced dataset - - - → F1 Score
+- False Positives are costly - - → Precision
+- False Negatives are costly - - → Recall
+- Need more Recall than Precision - → F2 Score
+- Need more Precision than Recall - → F0.5 Score
